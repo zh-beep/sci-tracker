@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 async function getClients(): Promise<Client[]> {
+  console.log('Fetching clients from:', process.env.NEXT_PUBLIC_SUPABASE_URL)
+  
   const { data, error } = await supabase
     .from('clients')
     .select('*')
@@ -13,6 +15,7 @@ async function getClients(): Promise<Client[]> {
     return []
   }
 
+  console.log('Clients fetched:', data?.length || 0)
   return data || []
 }
 
